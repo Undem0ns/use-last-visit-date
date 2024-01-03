@@ -1,81 +1,60 @@
-# Turborepo starter
+# Use Last Visit Date (publish to npm)
 
-This is an official starter Turborepo.
+[![npm version](https://badge.fury.io/js/use-last-visit-date.svg)](https://badge.fury.io/js/use-last-visit-date)
+[![Build Status](https://travis-ci.com/tylim88/use-last-visit-date.svg?branch=master)](https://travis-ci.com/tylim88/use-last-visit-date)
+[![Coverage Status](https://coveralls.io/repos/github/tylim88/use-last-visit-date/badge.svg?branch=master)](https://coveralls.io/github/tylim88/use-last-visit-date?branch=master)
 
-## Using this example
+## Install
 
-Run the following command:
-
-```sh
-npx create-turbo@latest
+```bash
+npm install --save use-last-visit-date
 ```
 
-## What's inside?
+## Usage
 
-This Turborepo includes the following packages/apps:
+```jsx
+import React, { Component } from 'react'
 
-### Apps and Packages
+import useLastVisitDate from 'use-last-visit-date'
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+const LastVisitDate = () => {
+  const lastVisitDate = useLastVisitDate({
+    date: new Date(),
+    key: 'last-visit-date',
+    ttl: 60 * 60 * 24 * 7 * 1000, // 7 days
+  })
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+  return <div>{lastVisitDate}</div>
+}
 ```
 
-### Develop
+## API
 
-To develop all apps and packages, run the following command:
+### `useLastVisitDate(options)`
 
-```
-cd my-turborepo
-pnpm dev
-```
+#### `options`
 
-### Remote Caching
+##### `date`
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+Type: `Date`<br>
+Default: `new Date()`
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+The date to be used when the last visit date is not found in the storage.
 
-```
-cd my-turborepo
-npx turbo login
-```
+##### `key`
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+Type: `string`<br>
+Default: `last-visit-date`
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+The key to be used when storing the last visit date in the storage.
 
-```
-npx turbo link
-```
+##### `ttl`
 
-## Useful Links
+Type: `number`<br>
+Default: `Infinity`
 
-Learn more about the power of Turborepo:
+The time to live of the last visit date in milliseconds. The last visit date will be cleared from the storage when the time to live is reached.
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+## License
+
+MIT © [tylim88](

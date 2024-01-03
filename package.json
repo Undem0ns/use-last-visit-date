@@ -1,6 +1,6 @@
 {
-  "name": "use-last-visit-date",
-  "private": true,
+  "name": "root-monorepo",
+  "private": false,
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
@@ -16,5 +16,12 @@
   "packageManager": "pnpm@8.9.0",
   "engines": {
     "node": ">=18"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "dependencies": {
+    "@changesets/cli": "^2.27.1"
   }
 }
